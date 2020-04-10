@@ -7,4 +7,5 @@ void CanInit(void *parameters);
 void DMAInit(void *parameters);
 void TIMInit(void *parameters);
 void RefereeConnection_Init(void);
+void Task_Ui(void *parameters);
 #endif

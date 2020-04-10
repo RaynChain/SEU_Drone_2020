@@ -28,6 +28,11 @@ ext_shoot_data_t ext_shoot_data;
 ext_bullet_remaining_t ext_bullet_remaining;
 ext_rfid_status_t ext_rfid_status;
 
+uint8_t energy_point_c[2];//UI发送字符串时用
+uint8_t bullet_remaining_num_c[2];//UI发送字符串时用
+uint32_t bullet_max = 0;//判断是否是第一次发射，用于设置弹量上限是250还是500
+uint16_t last_energy_point = 0;
+
 /**
   * @brief  USART的空闲中断
   * @param  huart：UART的句柄
@@ -181,7 +186,21 @@ void Referee_Receive_Data_Processing(uint8_t SOF, uint16_t CmdID)
     }
     case AERIAL_ROBOT_ENERGY:
     {
+			  last_energy_point  = aerial_robot_energy.energy_point;
+			
         memcpy(&aerial_robot_energy, (Judge_Receive_Buffer + JUDGE_DATA_OFFSET + SOF), AERIAL_ROBOT_ENERGY_DATA_SIZE);
+			  
+			  energy_point_c[0] = (aerial_robot_energy.energy_point >> 8);//更新数据以供UI发送
+			  energy_point_c[1] = (aerial_robot_energy.energy_point & 0xFF);
+			
+			  if(bullet_max == 0 || bullet_max == 250)
+				{
+					if(bullet_max == 0 && last_energy_point == 300 && aerial_robot_energy.energy_point <300)//第一次发射
+						bullet_max = 250;
+					if(bullet_max == 250 && last_energy_point == 300 && aerial_robot_energy.energy_point <300)//第二次发射
+						bullet_max = 500;
+				}
+						
         break;
     }
     case ROBOT_HURT:

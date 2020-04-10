@@ -181,17 +181,21 @@ extern ext_client_custom_character_t custom_character;
 
 uint8_t InitPeripheral_UI(void);
 
-void Task_Ui(void *parameters);
+uint8_t FrameUpdata(void);
 
-uint8_t draw_line(uint32_t start_x,uint32_t start_y,uint32_t end_x,uint32_t end_y,uint8_t name[],uint32_t width,uint8_t layer,uint8_t color);
+uint8_t WhichTeam(void);
 
-uint8_t draw_rect(uint32_t start_x,uint32_t start_y,uint32_t end_x,uint32_t end_y,uint8_t name[],uint32_t width,uint8_t layer,uint8_t color);
+uint8_t draw_line(uint32_t operate, uint32_t start_x,uint32_t start_y,uint32_t end_x,uint32_t end_y,uint8_t name[],uint32_t width,uint8_t layer,uint8_t color);
+
+uint8_t draw_rect(uint32_t operate, uint32_t start_x,uint32_t start_y,uint32_t end_x,uint32_t end_y,uint8_t name[],uint32_t width,uint8_t layer,uint8_t color);
+
+uint8_t write_chars(uint32_t operate, uint32_t start_x,uint32_t start_y,uint32_t end_x,uint32_t end_y,uint8_t name[],uint32_t width, uint32_t size, uint8_t layer,uint8_t color, uint8_t contents[], uint8_t length);
 
 uint8_t send_graphic(void);
 
-uint8_t send_chars(void);
-
-uint8_t FrameUpdata(void);
-
 uint8_t check_empty_graphic(void);
+
+uint8_t load_chars(uint8_t chars_to_send[], uint8_t length);
+
+uint8_t Get_Shoot_Status(void);
 #endif

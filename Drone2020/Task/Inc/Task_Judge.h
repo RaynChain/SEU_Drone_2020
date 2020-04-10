@@ -448,6 +448,10 @@ extern ext_shoot_data_t ext_shoot_data;
 extern ext_bullet_remaining_t ext_bullet_remaining;
 extern ext_rfid_status_t ext_rfid_status;
 
+extern uint8_t energy_point_c[2];
+extern uint8_t bullet_remaining_num_c[2];
+extern uint32_t bullet_max;
+
 void Referee_IDLECallback(UART_HandleTypeDef *huart);
 void RefereeReceive(uint8_t JudgeReceive_Counter);
 void Referee_Receive_Data_Processing(uint8_t SOF, uint16_t CmdID);

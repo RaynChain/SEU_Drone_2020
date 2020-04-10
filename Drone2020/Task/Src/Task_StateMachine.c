@@ -11,6 +11,10 @@ void Task_StateMachine(void *parameters)
 	}
 }
 
+/*-----------------------变量定义-----------------------*/
+SHOOT_STATUS Shoot_Status_Value;//UI发送射击状态用
+
+/*-----------------------函数定义-----------------------*/
 /**
   * @brief  状态机初始化
   * @param  void
@@ -58,11 +62,20 @@ void StatusMachine_Update(void)
 						Pulse=1;
 						
 						if(Gimbal.shoot_status == ShootStatus_Stop)
+						{
 							Gimbal.shoot_status = ShootStatus_SingleRound;
+							Shoot_Status_Value = SINGLE_ROUND;
+						}
 						else if(Gimbal.shoot_status == ShootStatus_SingleRound)
+						{
 							Gimbal.shoot_status = ShootStatus_MultiRound;
+							Shoot_Status_Value = MULTI_ROUND;
+						}
 						else
+						{
 							Gimbal.shoot_status = ShootStatus_Stop;
+							Shoot_Status_Value = STOP;
+						}
 						
 						if(Gimbal.shoot_status != ShootStatus_Stop)
 							Gimbal.fric_status = FricStatus_Working;

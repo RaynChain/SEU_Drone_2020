@@ -179,4 +179,6 @@
 #define PatrolArmor1 (uint8_t)(0x03)  
 #define ServoMode (uint8_t)(0x04)     
 
+#define REFEREE_HUART huart1
+
 #endif
